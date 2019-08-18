@@ -1,0 +1,30 @@
+@model Olivia.Web.Models.Validation.UserLoginModel
+
+@{
+    ViewData["Title"] = "Inicio de sesión";
+}
+
+
+<main class="row">
+    <div class="col-12 col-md-6 p-4">
+        <h4>Ingresa a tu perfil</h4><br>
+        <p class="text-danger">@ViewBag.ErrorMessage</p>
+        @using (Html.BeginForm("Login", "User", FormMethod.Post))
+        {
+            <div class="form-group">
+                @Html.LabelFor(m => m.Username)
+                @Html.TextBoxFor(m => m.Username, new { @class="form-control"})
+                <small class="text-danger">@Html.ValidationMessageFor(m => m.Username)</small>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Password)
+                @Html.PasswordFor(m => m.Password, new { @class="form-control"})
+                <small class="text-danger">@Html.ValidationMessageFor(m => m.Password)</small>
+            </div>
+            <div class="text-right">
+                <a href=""><small>¿Aún no te has registrado?</small></a>
+                <input type="submit" class="btn btn-primary ml-3" value="Ingresar">
+            </div>
+        }
+    </div>
+</main>

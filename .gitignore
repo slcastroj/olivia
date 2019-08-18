@@ -1,0 +1,4 @@
+**/bin
+**/obj
+**/.vscode
+**/scaffold_efcore.*

@@ -1,0 +1,15 @@
+<header class="row">
+    <nav class="navbar navbar-dark bg-dark col-12 navbar-expand-sm">
+        <a href="#" class="navbar-brand">Bienvenido/a</a>
+        <ul class="navbar-nav ml-auto">
+            @Html.ActionLink("Inicio", "Home", "Index", null, new { @class = "nav-link"})
+            @if(User.Identity.IsAuthenticated) {
+            @Html.ActionLink("Perfil", "Profile", "User", null, new { @class = "nav-link"})
+            @Html.ActionLink("Salir", "Logout", "User", null, new { @class = "nav-link"})
+            }
+            else {
+            @Html.ActionLink("Ingresar", "Login", "User", null, new { @class = "nav-link"})
+            }
+        </ul>
+    </nav>
+</header>
