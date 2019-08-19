@@ -38,8 +38,7 @@ namespace Olivia.Web.Models.Data
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
-                    .HasColumnType("int(11)")
-                    .ValueGeneratedNever();
+                    .HasColumnType("int(11)");
 
                 entity.Property(e => e.Content)
                     .IsRequired()
@@ -73,6 +72,15 @@ namespace Olivia.Web.Models.Data
                     .HasMaxLength(32)
                     .IsUnicode(false)
                     .ValueGeneratedNever();
+
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasColumnName("email")
+                    .IsUnicode(false);
+
+                entity.Property(e => e.EmailConfirmed)
+                    .HasColumnName("email_confirmed")
+                    .HasColumnType("tinyint(1)");
 
                 entity.Property(e => e.Password)
                     .IsRequired()

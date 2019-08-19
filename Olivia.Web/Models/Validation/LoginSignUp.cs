@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Olivia.Web.Models.Validation
 {
-    public class UserLoginModel
+    public class LoginSignUp
     {
         [Required(ErrorMessage = "Shared_Required")]
         [Display(Name = "Nombre de usuario")]
@@ -17,5 +17,10 @@ namespace Olivia.Web.Models.Validation
         [MaxLength(64, ErrorMessage = "Shared_MaxLength")]
         [DataType(DataType.Password)]
         public String Password { get; set; }
+
+        [Required(ErrorMessage = "Shared_Required")]
+        [Display(Name = "Correo electrónico")]
+        [DataType(DataType.EmailAddress)]
+        public String Email { get; set; }
     }
 }

@@ -17,6 +17,7 @@ using System.Reflection;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Olivia.Web.Models.Validation;
 using Olivia.Web.Models.Data;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace Olivia.Web
 {
@@ -55,17 +56,20 @@ namespace Olivia.Web
             {
                 o.Password.RequireNonAlphanumeric = false;
                 o.Password.RequireUppercase = false;
+                o.SignIn.RequireConfirmedEmail = true;
             })
                 .AddDefaultTokenProviders()
-                .AddSignInManager();
+                .AddSignInManager<LoginManager<User>>();
 
             services.AddTransient<IUserStore<User>, UserStore>();
+            services.AddTransient<IUserEmailStore<User>, UserStore>();
 
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
                 options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
-                options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+                options.DefaultSignInScheme = IdentityConstants.ApplicationScheme;
+                options.DefaultSignOutScheme = IdentityConstants.ApplicationScheme;
             }).AddCookie(IdentityConstants.ApplicationScheme);
 
             services.ConfigureApplicationCookie(opt =>
@@ -74,15 +78,13 @@ namespace Olivia.Web
                 opt.SlidingExpiration = true;
             });
 
-            services.Configure<SecurityStampValidatorOptions>(o =>
-            {
-                o.ValidationInterval = TimeSpan.FromMinutes(1);
-            });
-
             services.AddLocalization(o =>
             {
                 o.ResourcesPath = "Resources";
             });
+
+            services.AddTransient<IEmailSender, GmailSender>();
+            services.Configure<GmailSenderOptions>(Configuration);
 
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)

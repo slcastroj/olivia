@@ -7,7 +7,7 @@ using Olivia.Web.Models.Data;
 
 namespace Olivia.Web.Models.Identity
 {
-    public class UserStore : IUserStore<User>, IUserPasswordStore<User>
+    public class UserStore : IUserStore<User>, IUserPasswordStore<User>, IUserEmailStore<User>
     {
         private OliviaContext Context { get; }
 
@@ -85,28 +85,66 @@ namespace Olivia.Web.Models.Identity
             return Task.FromResult(!String.IsNullOrWhiteSpace(user.Password));
         }
 
-        public Task SetNormalizedUserNameAsync(User user, string normalizedName, CancellationToken cancellationToken)
+        public async Task SetNormalizedUserNameAsync(User user, string normalizedName, CancellationToken cancellationToken)
         {
             user.Username = normalizedName;
-            return Task.CompletedTask;
+            await Context.SaveChangesAsync();
         }
 
-        public Task SetPasswordHashAsync(User user, string passwordHash, CancellationToken cancellationToken)
+        public async Task SetPasswordHashAsync(User user, string passwordHash, CancellationToken cancellationToken)
         {
             user.Password = passwordHash;
-            return Task.CompletedTask;
+            await Context.SaveChangesAsync();
         }
 
-        public Task SetUserNameAsync(User user, string userName, CancellationToken cancellationToken)
+        public async Task SetUserNameAsync(User user, string userName, CancellationToken cancellationToken)
         {
             user.Username = userName;
-            return Task.CompletedTask;
+            await Context.SaveChangesAsync();
         }
 
         public Task<IdentityResult> UpdateAsync(User user, CancellationToken cancellationToken)
         {
             Context.User.Update(user);
             return Task.FromResult(IdentityResult.Success);
+        }
+
+        public async Task SetEmailAsync(User user, string email, CancellationToken cancellationToken)
+        {
+            user.Email = email;
+            await Context.SaveChangesAsync();
+        }
+
+        public Task<string> GetEmailAsync(User user, CancellationToken cancellationToken)
+        {
+            return Task.FromResult(user.Email);
+        }
+
+        public Task<bool> GetEmailConfirmedAsync(User user, CancellationToken cancellationToken)
+        {
+            return Task.FromResult(user.EmailConfirmed == 1);
+        }
+
+        public async Task SetEmailConfirmedAsync(User user, bool confirmed, CancellationToken cancellationToken)
+        {
+            user.EmailConfirmed = (byte)(confirmed ? 1 : 0);
+            await Context.SaveChangesAsync();
+        }
+
+        public Task<User> FindByEmailAsync(string normalizedEmail, CancellationToken cancellationToken)
+        {
+            return Task.FromResult(Context.User.Where(x => x.Email == normalizedEmail).FirstOrDefault());
+        }
+
+        public Task<string> GetNormalizedEmailAsync(User user, CancellationToken cancellationToken)
+        {
+            return Task.FromResult(user.Email.ToLowerInvariant());
+        }
+
+        public async Task SetNormalizedEmailAsync(User user, string normalizedEmail, CancellationToken cancellationToken)
+        {
+            user.Email = normalizedEmail;
+            await Context.SaveChangesAsync();
         }
     }
 }
