@@ -64,7 +64,7 @@ namespace Olivia.Web.Controllers
         public async Task<IActionResult> Profile()
         {
             var u = await Users.UserManager.GetUserAsync(HttpContext.User);
-            var posts = u.Post;
+            var posts = Database.Post.Where(x => x.Username == u.Username);
             var up = new UserProfile { User = u, Posts = posts };
             return View(up);
         }
@@ -77,7 +77,7 @@ namespace Olivia.Web.Controllers
             {
                 return RedirectToAction("Profile");
             }
-            var posts = u.Post;
+            var posts = Database.Post.Where(x => x.Username == u.Username);
             var up = new UserProfile { User = u, Posts = posts };
             return View(up);
         }
@@ -115,7 +115,7 @@ namespace Olivia.Web.Controllers
         public async Task<IActionResult> DeletePost(Int32 id)
         {
             var u = await Users.UserManager.GetUserAsync(HttpContext.User);
-            var p = u.Post.Where(x => x.Id == id).FirstOrDefault();
+            var p = await Database.Post.Where(x => x.Username == u.Username && x.Id == id).FirstOrDefaultAsync();
             if (p is null) { return Unauthorized(); }
 
             var rs = Database.Post.Remove(p);
