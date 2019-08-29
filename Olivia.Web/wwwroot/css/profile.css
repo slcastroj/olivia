@@ -1,0 +1,8 @@
+.formImg {
+    max-height: 100px;
+    overflow: hidden;
+}
+
+.formImg>img {
+    width: 100%;
+}

@@ -4,15 +4,23 @@
 }
 
 <main class="row p-4">
+    <link rel="stylesheet" href="~/css/profile.css">
+
     <div class="col-12 col-md-6">
+        <img class="d-none" id="sampleImg">
         <h4 class="text-primary mb-4">¡Hola, @Model.User.Username.ToLowerInvariant()!</h4>
         @using(Html.BeginForm("Post", "User", FormMethod.Post, new { @class = "mb-5" })) {
+            <p>¿En qué piensas?</p>
             <div class="form-group">
-                <p>¿En qué piensas?</p>
                 @Html.TextAreaFor(m => m.PostForm.Content, new { @class="form-control"})
                 <small class="text-danger">@Html.ValidationMessageFor(m => m.PostForm.Content)</small>
             </div>
+            <div id="imgCarousel" class="row">
+
+            </div>
             <div class="text-right">
+                <button class="btn btn-outline-primary btn-sm" onclick="addImage()">Agregar imagen</button>
+                <input type="file" class="d-none" name="PostImage" id="sendImage" accept="image/*" multiple>
                 <input type="submit" class="btn btn-primary btn-sm ml-3" value="Enviar">
             </div>
         }
@@ -45,4 +53,6 @@
             }
         }
     </div>
+
+    <script src="~/js/profile.js"></script>
 </main>
