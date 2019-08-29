@@ -1,15 +1,17 @@
 <header class="row">
-    <nav class="navbar navbar-dark bg-dark col-12 navbar-expand-sm">
+    <nav class="navbar navbar-dark bg-dark col-12 navbar-expand-md">
         @Html.ActionLink("Olivia", "Index", "Home", null, new { @class = "navbar-brand"})
-        <ul class="navbar-nav ml-auto">
-            @Html.ActionLink("Inicio", "Index", "Home", null, new { @class = "nav-link"})
-            @if(User.Identity.IsAuthenticated) {
-            @Html.ActionLink("Perfil", "Profile", "User", null, new { @class = "nav-link"})
-            @Html.ActionLink("Salir", "Logout", "User", null, new { @class = "nav-link"})
-            }
-            else {
-            @Html.ActionLink("Ingresar", "Login", "User", null, new { @class = "nav-link"})
-            }
-        </ul>
+        <div class="navbar-collapse">
+            <ul class="navbar-nav ml-auto">
+                @Html.ActionLink("Inicio", "Index", "Home", null, new { @class = "nav-link"})
+                @if(User.Identity.IsAuthenticated) {
+                    @Html.ActionLink("Perfil", "Profile", "User", null, new { @class = "nav-link"})
+                    @Html.ActionLink("Salir", "Logout", "User", null, new { @class = "nav-link"})
+                }
+                else {
+                    @Html.ActionLink("Ingresar", "Login", "User", null, new { @class = "nav-link"})
+                }
+            </ul>
+        </div>
     </nav>
 </header>

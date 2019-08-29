@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="~/css/profile.css">
 
     <div class="col-12 col-md-6">
-        <img class="d-none" id="sampleImg">
         <h4 class="text-primary mb-4">¡Hola, @Model.User.Username.ToLowerInvariant()!</h4>
         @using(Html.BeginForm("Post", "User", FormMethod.Post, new { @class = "mb-5" })) {
             <p>¿En qué piensas?</p>
@@ -15,7 +14,7 @@
                 @Html.TextAreaFor(m => m.PostForm.Content, new { @class="form-control"})
                 <small class="text-danger">@Html.ValidationMessageFor(m => m.PostForm.Content)</small>
             </div>
-            <div id="imgCarousel" class="row">
+            <div id="imgCarousel" class="row mb-3">
 
             </div>
             <div class="text-right">
