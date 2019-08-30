@@ -122,12 +122,12 @@ namespace Olivia.Web.Models.Identity
 
         public Task<bool> GetEmailConfirmedAsync(User user, CancellationToken cancellationToken)
         {
-            return Task.FromResult(user.EmailConfirmed == 1);
+            return Task.FromResult(user.IsEmailConfirmed == 1);
         }
 
         public async Task SetEmailConfirmedAsync(User user, bool confirmed, CancellationToken cancellationToken)
         {
-            user.EmailConfirmed = (byte)(confirmed ? 1 : 0);
+            user.IsEmailConfirmed = (byte)(confirmed ? 1 : 0);
             await Context.SaveChangesAsync();
         }
 

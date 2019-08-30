@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
-using MySql.Data.MySqlClient;
 
 using Olivia.Web.Models;
 using Olivia.Web.Models.Identity;
@@ -18,6 +17,7 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Olivia.Web.Models.Validation;
 using Olivia.Web.Models.Data;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using MySql.Data.MySqlClient;
 
 namespace Olivia.Web
 {
@@ -50,7 +50,7 @@ namespace Olivia.Web
             };
 
             services.AddDbContext<OliviaContext>(opt =>
-                opt.UseMySQL(builder.ConnectionString));
+                opt.UseMySql(builder.ConnectionString));
 
             services.AddIdentityCore<User>(o =>
             {

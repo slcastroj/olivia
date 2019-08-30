@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Olivia.Web.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class CodeFirstAnnotations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,58 +11,58 @@ namespace Olivia.Web.Migrations
                 name: "sheeminc_olivia");
 
             migrationBuilder.CreateTable(
-                name: "user",
+                name: "User",
                 schema: "sheeminc_olivia",
                 columns: table => new
                 {
-                    username = table.Column<string>(unicode: false, maxLength: 32, nullable: false),
-                    password = table.Column<string>(unicode: false, nullable: false),
-                    email = table.Column<string>(unicode: false, nullable: false),
-                    email_confirmed = table.Column<byte>(type: "tinyint(1)", nullable: false)
+                    Username = table.Column<string>(nullable: false),
+                    Password = table.Column<string>(maxLength: 64, nullable: false),
+                    Email = table.Column<string>(nullable: false),
+                    IsEmailConfirmed = table.Column<byte>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_user", x => x.username);
+                    table.PrimaryKey("PK_User", x => x.Username);
                 });
 
             migrationBuilder.CreateTable(
-                name: "post",
+                name: "Post",
                 schema: "sheeminc_olivia",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int(11)", nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("MySQL:AutoIncrement", true),
-                    content = table.Column<string>(unicode: false, nullable: false),
-                    date = table.Column<DateTime>(type: "date", nullable: false),
-                    username = table.Column<string>(unicode: false, maxLength: 32, nullable: false)
+                    Content = table.Column<string>(nullable: false),
+                    Date = table.Column<DateTime>(nullable: false),
+                    Username = table.Column<string>(maxLength: 32, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_post", x => x.id);
+                    table.PrimaryKey("PK_Post", x => x.Id);
                     table.ForeignKey(
-                        name: "fk_post_user",
-                        column: x => x.username,
+                        name: "FK_Post_User_Username",
+                        column: x => x.Username,
                         principalSchema: "sheeminc_olivia",
-                        principalTable: "user",
-                        principalColumn: "username",
+                        principalTable: "User",
+                        principalColumn: "Username",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "fk_post_user",
+                name: "IX_Post_Username",
                 schema: "sheeminc_olivia",
-                table: "post",
-                column: "username");
+                table: "Post",
+                column: "Username");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "post",
+                name: "Post",
                 schema: "sheeminc_olivia");
 
             migrationBuilder.DropTable(
-                name: "user",
+                name: "User",
                 schema: "sheeminc_olivia");
         }
     }

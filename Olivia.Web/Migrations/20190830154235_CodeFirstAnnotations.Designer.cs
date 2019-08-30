@@ -9,8 +9,8 @@ using Olivia.Web.Models.Data;
 namespace Olivia.Web.Migrations
 {
     [DbContext(typeof(OliviaContext))]
-    [Migration("20190829160619_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20190830154235_CodeFirstAnnotations")]
+    partial class CodeFirstAnnotations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,65 +21,48 @@ namespace Olivia.Web.Migrations
             modelBuilder.Entity("Olivia.Web.Models.Data.Post", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasColumnType("int(11)");
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnName("content")
-                        .IsUnicode(false);
+                        .IsRequired();
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnName("date")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("Date");
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasColumnName("username")
-                        .HasMaxLength(32)
-                        .IsUnicode(false);
+                        .HasMaxLength(32);
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Username")
-                        .HasName("fk_post_user");
+                    b.HasIndex("Username");
 
-                    b.ToTable("post","sheeminc_olivia");
+                    b.ToTable("Post","sheeminc_olivia");
                 });
 
             modelBuilder.Entity("Olivia.Web.Models.Data.User", b =>
                 {
                     b.Property<string>("Username")
-                        .HasColumnName("username")
-                        .HasMaxLength(32)
-                        .IsUnicode(false);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnName("email")
-                        .IsUnicode(false);
+                        .IsRequired();
 
-                    b.Property<byte>("EmailConfirmed")
-                        .HasColumnName("email_confirmed")
-                        .HasColumnType("tinyint(1)");
+                    b.Property<byte>("IsEmailConfirmed");
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnName("password")
-                        .IsUnicode(false);
+                        .HasMaxLength(64);
 
                     b.HasKey("Username");
 
-                    b.ToTable("user","sheeminc_olivia");
+                    b.ToTable("User","sheeminc_olivia");
                 });
 
             modelBuilder.Entity("Olivia.Web.Models.Data.Post", b =>
                 {
-                    b.HasOne("Olivia.Web.Models.Data.User", "UsernameNavigation")
+                    b.HasOne("Olivia.Web.Models.Data.User", "User")
                         .WithMany("Post")
                         .HasForeignKey("Username")
-                        .HasConstraintName("fk_post_user")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
