@@ -1,3 +1,6 @@
 **/bin
 **/obj
-**/scaffold_efcore.*
+**/node_modules
+**/js/*.js
+!**/js/third-party
+**/package-lock.json

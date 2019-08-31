@@ -1,0 +1,14 @@
+{
+    "compileOnSave": true,
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "noEmitOnError": false,
+        "sourceMap": false,
+        "target": "es6",
+        "watch": true,
+        "outDir": "../js"
+    },
+    "include": [
+        "./*.ts"
+    ]
+}
