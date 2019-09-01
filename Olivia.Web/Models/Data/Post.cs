@@ -9,6 +9,7 @@ namespace Olivia.Web.Models.Data
     public partial class Post
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Required]
@@ -20,6 +21,8 @@ namespace Olivia.Web.Models.Data
         [Required]
         [MaxLength(32)]
         public string Username { get; set; }
+        [Url]
+        public string ImageUrl { get; set; }
 
         [ForeignKey("Username")]
         public virtual User User { get; set; }

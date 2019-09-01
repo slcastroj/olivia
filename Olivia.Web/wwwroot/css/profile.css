@@ -1,13 +1,13 @@
-.formImg {
+.PreviewImage {
     max-height: 75px;
     overflow: hidden;
 }
 
-.formImg>img {
+.PreviewImage>img {
     width: 150%;
 }
 
-.formImg>p {
+.PreviewImage>p {
     position: absolute;
     color: white;
     top: 0px;

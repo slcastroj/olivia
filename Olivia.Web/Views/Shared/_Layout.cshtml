@@ -5,14 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@ViewData["Title"]</title>
 
-    <script src="~/js/third-party/jquery-3.4.1.min.js"></script>
-    <script src="~/js/third-party/jquery.validate.min.js"></script>
-    <script src="~/js/third-party/jquery.validate.unobtrusive.js"></script>
-    <script src="~/js/third-party/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validate/additional-methods.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.js"></script>
     
-    <link rel="stylesheet" href="~/css/third-party/bootstrap.min.css">
+    <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="~/css/global.css">
+
+    @RenderSection("CustomImports", false)
 </head>
 <body class="container-fluid">
     @await Html.PartialAsync("_Header")

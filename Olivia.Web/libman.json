@@ -1,0 +1,50 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "jquery@3.4.1",
+      "destination": "wwwroot/lib/jquery",
+      "files": [
+        "jquery.min.js"
+      ]
+    },
+    {
+      "provider": "unpkg",
+      "library": "@types/jquery@3.3.31",
+      "destination": "wwwroot/lib/@types/jquery"
+    },
+    {
+      "library": "jquery-validate@1.19.1",
+      "destination": "wwwroot/lib/jquery-validate",
+      "files": [
+        "additional-methods.min.js",
+        "jquery.validate.min.js"
+      ]
+    },
+    {
+      "library": "jquery-validation-unobtrusive@3.2.11",
+      "destination": "wwwroot/lib/jquery-validation-unobtrusive",
+      "files": [
+        "jquery.validate.unobtrusive.js"
+      ]
+    },
+    {
+      "library": "twitter-bootstrap@4.3.1",
+      "destination": "wwwroot/lib/bootstrap",
+      "files": [
+        "css/bootstrap.min.css",
+        "js/bootstrap.bundle.js"
+      ]
+    },
+    {
+      "library": "sizzle@2.3.4",
+      "destination": "wwwroot\\lib\\sizzle"
+    },
+    {
+      "provider": "unpkg",
+      "library": "@types/sizzle@2.3.2",
+      "destination": "wwwroot\\lib\\@types/sizzle"
+    }
+  ]
+}

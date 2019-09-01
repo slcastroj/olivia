@@ -1,6 +1,4 @@
 **/bin
 **/obj
-**/node_modules
+**/lib
 **/js/*.js
-!**/js/third-party
-**/package-lock.json

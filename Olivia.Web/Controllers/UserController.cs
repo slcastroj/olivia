@@ -1,9 +1,11 @@
 using System;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -22,13 +24,15 @@ namespace Olivia.Web.Controllers
         private SignInManager<User> Users { get; }
         private OliviaContext Database { get; }
         private IEmailSender EmailSender { get; }
+        private IHostingEnvironment Environment { get; }
 
-        public UserController(SignInManager<User> users, UserManager<User> manager, OliviaContext database, IEmailSender sender)
+        public UserController(SignInManager<User> users, UserManager<User> manager, OliviaContext database, IEmailSender sender, IHostingEnvironment env)
         {
             Users = users;
             Database = database;
             Manager = manager;
             EmailSender = sender;
+            Environment = env;
         }
 
         [HttpGet("/Login")]
@@ -95,16 +99,47 @@ namespace Olivia.Web.Controllers
         {
             if (!ModelState.IsValid) { return BadRequest(ModelState); }
 
+            var file = up.PostForm.File;
+            var guid = Guid.Empty;
+            var ext = String.Empty;
+            if (up.PostForm.File != null)
+            {
+                ext = Path.GetExtension(file.FileName);
+                var dir = Path.Combine(Environment.WebRootPath, "user-data", User.Identity.Name);
+                if (!Directory.Exists(dir))
+                {
+                    var di = Directory.CreateDirectory(dir);
+                    if (file.Length > 0)
+                    {
+                        var filename = String.Empty;
+                        do
+                        {
+                            guid = Guid.NewGuid();
+                            filename = Path.Combine(dir, guid.ToString() + ext);
+                        } while (System.IO.File.Exists(filename));
+                        var path = Path.Combine(dir, filename);
+                        using (var stream = new FileStream(filename, FileMode.Create))
+                        {
+                            await file.CopyToAsync(stream);
+                        }
+                    }
+                }
+            }
+
             var u = await Users.UserManager.GetUserAsync(HttpContext.User);
             var p = new Post
             {
                 Content = up.PostForm.Content,
                 Username = u.Username,
-                Date = DateTime.Now
+                Date = DateTime.Now,
+                ImageUrl = up.PostForm.File is null ? "" : Path.Combine("~", "user-data", u.Username, guid + ext)
             };
 
             var rs = await Database.Post.AddAsync(p);
-            if (rs is null) { return BadRequest(); }
+            if (rs is null)
+            {
+                return BadRequest();
+            }
             await Database.SaveChangesAsync();
 
             return RedirectToAction("Profile");

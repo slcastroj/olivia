@@ -40,7 +40,7 @@
         },
         {
             "type": "typescript",
-            "tsconfig": "Olivia.Web/wwwroot/ts/tsconfig.json",
+            "tsconfig": "Olivia.Web/tsconfig.json",
             "option": "watch",
             "problemMatcher": [
                 "$tsc-watch"

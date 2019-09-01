@@ -14,7 +14,8 @@ namespace Olivia.Web.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079");
+                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("Olivia.Web.Models.Data.Post", b =>
                 {
@@ -25,6 +26,8 @@ namespace Olivia.Web.Migrations
                         .IsRequired();
 
                     b.Property<DateTime>("Date");
+
+                    b.Property<string>("ImageUrl");
 
                     b.Property<string>("Username")
                         .IsRequired()

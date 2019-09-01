@@ -1,14 +1,18 @@
 {
     "compileOnSave": true,
     "compilerOptions": {
+        "module": "es6",
+        "baseUrl": ".",
         "noImplicitAny": true,
-        "noEmitOnError": false,
         "sourceMap": false,
         "target": "es6",
         "watch": true,
-        "outDir": "../js"
+        "outDir": "wwwroot/js",
+        "typeRoots": [
+            "wwwroot/lib/@types"
+        ]
     },
     "include": [
-        "./*.ts"
+        "wwwroot/ts/**/*.ts"
     ]
 }

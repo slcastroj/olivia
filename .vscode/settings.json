@@ -1,7 +1,10 @@
 {
-    "files.exclude": {
-        "**/obj": true,
-        "**/bin": true,
-        "**/node_modules": true
-    }
+  "files.exclude": {
+    "**/obj": false,
+    "**/bin": false,
+    "**/node_modules": false
+  },
+  "path-intellisense.mappings": {
+    "~": "${workspaceRoot}/Olivia.Web/wwwroot"
+  }
 }
